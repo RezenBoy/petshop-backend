@@ -1,13 +1,13 @@
-// package com.bowlfullbuddies.bowlfullbuddies;
+package com.bowlfullbuddies.bowlfullbuddies;
 
-// import org.junit.jupiter.api.Test;
-// import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-// @SpringBootTest
-// class BowlfullBuddiesApplicationTests {
+@SpringBootTest
+class BowlfullbuddiesApplicationTests {
 
-// 	@Test
-// 	void contextLoads() {
-// 	}
+	@Test
+	void contextLoads() {
+	}
 
-// }
+}

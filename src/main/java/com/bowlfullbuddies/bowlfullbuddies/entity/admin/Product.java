@@ -46,7 +46,7 @@ public class Product {
 	private Double mrp;
 
 	@ManyToOne
-	private TaxPercentage taxPercentage;
+	private Tax tax;
 	
 	@ManyToOne
 	private Brand brand;

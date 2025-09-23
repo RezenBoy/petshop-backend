@@ -1,9 +1,6 @@
 package com.bowlfullbuddies.bowlfullbuddies.entity.admin;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,10 +9,12 @@ import lombok.Setter;
 @Setter
 public class Tax {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String taxName;
+    private String taxName;     // e.g. GST, VAT
+    private Double percentage;  // e.g. 18.0 for 18%
 
+    private String description;
 }

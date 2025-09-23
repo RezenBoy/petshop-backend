@@ -2,15 +2,10 @@ package com.bowlfullbuddies.bowlfullbuddies.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.bowlfullbuddies.bowlfullbuddies.entity.customer.Users;
-import com.bowlfullbuddies.bowlfullbuddies.repository.UserRepository;
+import com.bowlfullbuddies.bowlfullbuddies.service.UserService;
 
 @RestController
 @RequestMapping("/api/users")
@@ -18,34 +13,23 @@ import com.bowlfullbuddies.bowlfullbuddies.repository.UserRepository;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    private UserService userService;
 
-    @GetMapping("/register")
-    public ResponseEntity<?> getRegistrationPage() {
-        // Return the registration page
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/register")   
+    @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody Users user) {
-        // Implement registration logic
-        return ResponseEntity.ok(userRepository.save(user));
-    }
-
-    @GetMapping("/login")
-    public ResponseEntity<?> getLoginPage() {
-        // Return the login page
-        return ResponseEntity.ok().build();
+        try {
+            return ResponseEntity.ok(userService.registerUser(user));
+        } catch (RuntimeException ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody Users user) {
-        Users existingUser = userRepository.findByAddressEmbeddableEmail(user.getAddressEmbeddable().getEmail());
-
-        if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
-            return ResponseEntity.ok(existingUser); // success
-        } else {
-            return ResponseEntity.status(401).body("Invalid email or password");
+        try {
+            return ResponseEntity.ok(userService.loginUser(user));
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(401).body(ex.getMessage());
         }
     }
 }

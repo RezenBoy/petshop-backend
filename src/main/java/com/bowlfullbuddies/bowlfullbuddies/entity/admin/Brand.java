@@ -1,10 +1,6 @@
 package com.bowlfullbuddies.bowlfullbuddies.entity.admin;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,11 +9,14 @@ import lombok.Setter;
 @Setter
 public class Brand {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String brandName;
+    private String brandName;
 
+    @Column(length = 500)
+    private String description;
+
+    private boolean active = true; // ✅ optional: mark active/inactive
 }
-

@@ -1,20 +1,13 @@
 package com.bowlfullbuddies.bowlfullbuddies.entity.admin;
 
-
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Transient;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,16 +22,19 @@ public class ProductSubCategory {
 
 	private String subCategoryName;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonBackReference
 	private ProductCategory productCategory;
 
-	@Lob
-	@Column(columnDefinition = "LONGBLOB")
-	private byte[] image;
+	// @Lob
+	// @Column(columnDefinition = "LONGBLOB")
+	// private byte[] image;
 
-	@Transient
-	private MultipartFile file;
+	// @Transient
+	// private MultipartFile file;
 
-	@OneToMany(mappedBy = "productSubCategory", cascade = CascadeType.ALL)
-	private List<Discount> discounts;
+	// @OneToMany(mappedBy = "productSubCategory", cascade = CascadeType.ALL, fetch
+	// = FetchType.LAZY)
+	// @JsonManagedReference
+	// private List<Discount> discounts;
 }

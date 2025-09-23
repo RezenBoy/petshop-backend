@@ -1,7 +1,7 @@
 package com.bowlfullbuddies.bowlfullbuddies.entity.customer;
 
 import com.bowlfullbuddies.bowlfullbuddies.entity.admin.Product;
-import com.bowlfullbuddies.bowlfullbuddies.entity.admin.TaxPercentage;
+import com.bowlfullbuddies.bowlfullbuddies.entity.admin.Tax;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,5 +37,5 @@ public class PurchaseItems {
 	private Double totalPriceWithTax;
 	
 	@ManyToOne
-	private TaxPercentage taxPercentage;
+	private Tax tax;
 }

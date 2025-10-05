@@ -1,7 +1,5 @@
 package com.bowlfullbuddies.bowlfullbuddies.entity.admin;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,8 +15,8 @@ public class Discount {
     private String discountName;
     private Double discountPercent;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sub_category_id")
-    // @JsonBackReference   // 👈 prevents recursion
+    // @JsonBackReference  
     private ProductSubCategory productSubCategory;
 }

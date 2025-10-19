@@ -20,12 +20,28 @@ public class State {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String stateName;
-	
+
 	@ManyToOne
 	private Country country;
-	
-	@OneToMany(mappedBy = "state" , cascade = CascadeType.ALL , targetEntity = District.class)
+
+	@OneToMany(mappedBy = "state", cascade = CascadeType.ALL, targetEntity = District.class)
 	List<District> districts;
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof State))
+			return false;
+		State other = (State) o;
+		return id != null && id.equals(other.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
+
 }

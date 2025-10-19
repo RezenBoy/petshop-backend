@@ -18,5 +18,21 @@ public class Brand {
     @Column(length = 500)
     private String description;
 
-    private boolean active = true; // ✅ optional: mark active/inactive
+    private boolean active = true;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Brand))
+            return false;
+        Brand other = (Brand) o;
+        return id != null && id.equals(other.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
 }

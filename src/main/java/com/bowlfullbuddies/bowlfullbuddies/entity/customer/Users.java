@@ -4,6 +4,8 @@ import com.bowlfullbuddies.bowlfullbuddies.entity.AddressEmbeddable;
 import com.bowlfullbuddies.bowlfullbuddies.entity.admin.ShoppingCart;
 import com.bowlfullbuddies.bowlfullbuddies.entity.admin.WishList;
 import com.bowlfullbuddies.bowlfullbuddies.enums.UsersCategory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -17,7 +19,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-
 @Entity
 @Getter
 @Setter
@@ -29,6 +30,8 @@ public class Users {
 	private Long id;
 
 	private String fullName;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 
 	@Enumerated(EnumType.STRING)
@@ -36,13 +39,26 @@ public class Users {
 
 	@Embedded
 	private AddressEmbeddable addressEmbeddable;
-	
+
 	@OneToOne(mappedBy = "users")
 	private WishList wishList;
-	
+
 	@OneToOne(mappedBy = "users")
 	private ShoppingCart shoppingCart;
-	
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof Users))
+			return false;
+		Users other = (Users) o;
+		return id != null && id.equals(other.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
 
 }

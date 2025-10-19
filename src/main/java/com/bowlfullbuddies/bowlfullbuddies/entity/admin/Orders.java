@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.bowlfullbuddies.bowlfullbuddies.entity.AddressEmbeddable;
 import com.bowlfullbuddies.bowlfullbuddies.entity.customer.Users;
@@ -12,6 +11,7 @@ import com.bowlfullbuddies.bowlfullbuddies.enums.OrderStatus;
 import com.bowlfullbuddies.bowlfullbuddies.enums.PaymentMode;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -39,7 +39,7 @@ public class Orders {
 	@Embedded
 	private AddressEmbeddable addressEmbeddable;
 
-	@DateTimeFormat
+	@Column(name = "order_date_time", nullable = false)
 	private LocalDateTime orderDateTime;
 
 	@ManyToOne
@@ -52,11 +52,26 @@ public class Orders {
 
 	@Enumerated(EnumType.STRING)
 	private OrderStatus orderStatus;
-	
+
 	@Lob
 	private String orderCancelReason;
 
 	@OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
 	List<OrderItemList> orderItemLists = new ArrayList<OrderItemList>();
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof Orders))
+			return false;
+		Orders other = (Orders) o;
+		return id != null && id.equals(other.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
 
 }

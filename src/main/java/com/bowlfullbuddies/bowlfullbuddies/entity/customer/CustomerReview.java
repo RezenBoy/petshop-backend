@@ -44,8 +44,23 @@ public class CustomerReview {
 
 	@ManyToOne
 	private Product product;
-	
+
 	@CreationTimestamp
 	private LocalDateTime localDateTime;
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof CustomerReview))
+			return false;
+		CustomerReview other = (CustomerReview) o;
+		return id != null && id.equals(other.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
 
 }

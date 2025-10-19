@@ -22,8 +22,22 @@ public class ShoppingCartList {
 
 	@ManyToOne
 	private Product product;
-	
+
 	private int quantity;
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof ShoppingCartList))
+			return false;
+		ShoppingCartList other = (ShoppingCartList) o;
+		return id != null && id.equals(other.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
 
 }

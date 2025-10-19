@@ -1,12 +1,6 @@
 package com.bowlfullbuddies.bowlfullbuddies.entity.admin;
 
-import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +8,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@Table(name = "product_sub_category")
 public class ProductSubCategory {
 
 	@Id
@@ -22,8 +17,9 @@ public class ProductSubCategory {
 
 	private String subCategoryName;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_category_id")
+    @JsonBackReference(value = "category-subcategory")
 	private ProductCategory productCategory;
 
 	// @Lob
@@ -37,4 +33,20 @@ public class ProductSubCategory {
 	// = FetchType.LAZY)
 	// @JsonManagedReference
 	// private List<Discount> discounts;
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof ProductSubCategory))
+			return false;
+		ProductSubCategory other = (ProductSubCategory) o;
+		return id != null && id.equals(other.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
+
 }

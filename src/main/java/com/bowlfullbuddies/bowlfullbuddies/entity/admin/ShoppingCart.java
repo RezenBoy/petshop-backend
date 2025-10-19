@@ -18,15 +18,29 @@ import lombok.Setter;
 @Getter
 public class ShoppingCart {
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@OneToOne
 	private Users users;
-	
+
 	@OneToMany(mappedBy = "shoppingCart")
 	List<ShoppingCartList> shoppingCartLists;
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof ShoppingCart))
+			return false;
+		ShoppingCart other = (ShoppingCart) o;
+		return id != null && id.equals(other.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
+
 }

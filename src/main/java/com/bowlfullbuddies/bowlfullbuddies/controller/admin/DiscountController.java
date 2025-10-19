@@ -18,7 +18,7 @@ public class DiscountController {
 
     @GetMapping
     public ResponseEntity<List<DiscountDTO>> getAllDiscounts() {
-        List<DiscountDTO> discounts = discountService.getAllDiscounts();
+        // List<DiscountDTO> discounts = discountService.getAllDiscounts();
         return ResponseEntity.ok(discountService.getAllDiscounts());
     }
 

@@ -1,16 +1,7 @@
 package com.bowlfullbuddies.bowlfullbuddies.entity.admin;
 
-
-import org.springframework.web.multipart.MultipartFile;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Transient;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,20 +10,14 @@ import lombok.Setter;
 @Setter
 public class ProductImages {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Lob
-	@Column(columnDefinition = "LONGBLOB")
-	private byte[] productImage;
-	
-	@Transient
-	private MultipartFile file;
-	
-	@ManyToOne
-	private Product product;
-	
-	private String document;
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String imageUrl; // ✅ this must exist and match exactly
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    @JsonBackReference
+    private Product product;
 }

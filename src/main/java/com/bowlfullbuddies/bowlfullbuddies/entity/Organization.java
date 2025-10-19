@@ -22,4 +22,19 @@ public class Organization {
 	@Embedded
 	private AddressEmbeddable addressEmbeddable;
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof Organization))
+			return false;
+		Organization other = (Organization) o;
+		return id != null && id.equals(other.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
+
 }

@@ -1,60 +1,53 @@
 package com.bowlfullbuddies.bowlfullbuddies.entity.customer;
 
 import java.time.LocalDateTime;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.bowlfullbuddies.bowlfullbuddies.entity.admin.Product;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Setter
 @Getter
-public class CustomerReview {
-
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+public class ProductReview {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private int rating;
+	private String reviewerName;
 
-	@Lob
+	@Column(length = 2000)
 	private String comment;
 
-	@Lob
-	@Column(columnDefinition = "LONGBLOB")
-	private byte[] image;
+	private int rating; // 1–5 stars
 
-	@Transient
-	private MultipartFile file;
+	private boolean verifiedPurchase = false;
 
-	@ManyToOne
-	private Users users;
+	private int helpfulCount = 0;
 
-	@ManyToOne
+	private LocalDateTime createdAt = LocalDateTime.now();
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "product_id")
 	private Product product;
-
-	@CreationTimestamp
-	private LocalDateTime localDateTime;
 
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
-		if (!(o instanceof CustomerReview))
+		if (!(o instanceof ProductReview))
 			return false;
-		CustomerReview other = (CustomerReview) o;
+		ProductReview other = (ProductReview) o;
 		return id != null && id.equals(other.getId());
 	}
 

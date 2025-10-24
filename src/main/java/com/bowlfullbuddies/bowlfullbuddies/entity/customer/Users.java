@@ -4,7 +4,6 @@ import com.bowlfullbuddies.bowlfullbuddies.entity.AddressEmbeddable;
 import com.bowlfullbuddies.bowlfullbuddies.entity.admin.ShoppingCart;
 import com.bowlfullbuddies.bowlfullbuddies.entity.admin.WishList;
 import com.bowlfullbuddies.bowlfullbuddies.enums.UsersCategory;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Embedded;

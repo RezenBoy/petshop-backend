@@ -67,7 +67,7 @@ public class Product {
     private List<ProductImages> productImages = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference(value = "subcategory-product")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ProductSubCategory productSubCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)

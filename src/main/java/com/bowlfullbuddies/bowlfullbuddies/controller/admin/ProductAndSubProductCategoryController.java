@@ -10,12 +10,14 @@ import com.bowlfullbuddies.bowlfullbuddies.entity.admin.ProductCategory;
 import com.bowlfullbuddies.bowlfullbuddies.entity.admin.ProductSubCategory;
 import com.bowlfullbuddies.bowlfullbuddies.service.ProductAndSubProductCategoryService;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/admin/categories")
 @CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
+@PreAuthorize("hasAuthority('ADMIN')")
 public class ProductAndSubProductCategoryController {
 
     private final ProductAndSubProductCategoryService productCatAndSubCatService;

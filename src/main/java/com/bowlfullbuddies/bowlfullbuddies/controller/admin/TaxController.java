@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.*;
 import com.bowlfullbuddies.bowlfullbuddies.entity.admin.Tax;
 import com.bowlfullbuddies.bowlfullbuddies.service.TaxService;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/admin/tax")
 @CrossOrigin(origins = "http://localhost:3000") // allow React frontend
 @RequiredArgsConstructor
+@PreAuthorize("hasAuthority('ADMIN')")
 public class TaxController {
 
     private final TaxService taxService;

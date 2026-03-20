@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.*;
 import com.bowlfullbuddies.bowlfullbuddies.dto.CreateDiscountDTO;
 import com.bowlfullbuddies.bowlfullbuddies.dto.DiscountDTO;
 import com.bowlfullbuddies.bowlfullbuddies.service.DiscountService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/admin/discounts")
 @CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
+@PreAuthorize("hasAuthority('ADMIN')")
 public class DiscountController {
 
     private final DiscountService discountService;

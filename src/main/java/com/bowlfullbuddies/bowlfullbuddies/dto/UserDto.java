@@ -14,4 +14,5 @@ public class UserDto {
     private String fullName;
     private UsersCategory usersCategory;
     private AddressDto address;
+    private String joinedDate;
 }

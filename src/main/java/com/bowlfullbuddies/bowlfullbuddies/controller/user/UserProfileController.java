@@ -39,7 +39,7 @@ public class UserProfileController {
         Users u = userService.findUserByEmail(email);
         if (u == null)
             return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(u); // or map to DTO
+        return ResponseEntity.ok(toDto(u)); // Maps nested AddressEmbeddable appropriately
     }
 
     // GET /api/users/{id}
@@ -87,6 +87,13 @@ public class UserProfileController {
         dto.setId(u.getId());
         dto.setFullName(u.getFullName());
         dto.setUsersCategory(u.getUsersCategory());
+        
+        if (u.getJoinedDate() != null) {
+            java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("MMMM yyyy");
+            dto.setJoinedDate(u.getJoinedDate().format(formatter));
+        } else {
+            dto.setJoinedDate("Member");
+        }
 
         AddressEmbeddable a = u.getAddressEmbeddable();
         if (a != null) {

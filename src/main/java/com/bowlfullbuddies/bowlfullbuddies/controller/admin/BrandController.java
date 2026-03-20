@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.*;
 import com.bowlfullbuddies.bowlfullbuddies.entity.admin.Brand;
 import com.bowlfullbuddies.bowlfullbuddies.service.BrandService;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/admin/brands")
 @CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
+@PreAuthorize("hasAuthority('ADMIN')")
 public class BrandController {
 
     private final BrandService brandService;

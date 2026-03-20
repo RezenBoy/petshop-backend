@@ -36,7 +36,7 @@ public class UserController {
         try {
             Users u = userService.authenticate(req.getEmail(), req.getPassword());
             String token = jwtUtil.generateToken(u.getAddressEmbeddable().getEmail(), u.getId());
-            return ResponseEntity.ok(new LoginResponse(token, u.getId(), u.getFullName()));
+            return ResponseEntity.ok(new LoginResponse(token, u.getId(), u.getFullName(), u.getUsersCategory()));
         } catch (RuntimeException ex) {
             return ResponseEntity.status(401).body(ex.getMessage());
         }

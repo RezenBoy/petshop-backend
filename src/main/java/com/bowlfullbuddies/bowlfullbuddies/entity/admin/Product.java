@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,6 +50,7 @@ public class Product {
     @ElementCollection
     @CollectionTable(name = "product_sizes", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "size")
+    @Fetch(FetchMode.SUBSELECT)
     private List<String> sizes = new ArrayList<>();
 
     /**
@@ -55,10 +58,12 @@ public class Product {
      */
     @ElementCollection
     @CollectionTable(name = "product_colors", joinColumns = @JoinColumn(name = "product_id"))
+    @Fetch(FetchMode.SUBSELECT)
     private List<ProductColor> colors = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
+    @Fetch(FetchMode.SUBSELECT)
     private List<ProductImages> productImages = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

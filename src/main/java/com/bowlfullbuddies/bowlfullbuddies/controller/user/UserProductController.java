@@ -31,7 +31,7 @@
                 Product product = productRepository.findById(id)
                         .orElseThrow(() -> new RuntimeException("Product not found"));
                 ProductResponseDTO response = convertToDTO(product);
-                return convertToDTO(product);
+                return response;
         }
 
         private ProductResponseDTO convertToDTO(Product p) {

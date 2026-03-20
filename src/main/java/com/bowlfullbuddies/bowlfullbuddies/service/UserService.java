@@ -30,8 +30,9 @@ public class UserService {
 
     public Users authenticate(String email, String rawPassword) {
         Users existing = userRepository.findByAddressEmbeddableEmail(email);
-        if (existing == null)
+        if (existing == null) {
             throw new RuntimeException("Invalid email or password");
+        }
         if (!passwordEncoder.matches(rawPassword, existing.getPassword())) {
             throw new RuntimeException("Invalid email or password");
         }
@@ -40,6 +41,9 @@ public class UserService {
 
     // Register user
     public Users registerUser(Users user) {
+        if (user.getAddressEmbeddable() == null || user.getAddressEmbeddable().getEmail() == null) {
+            throw new IllegalArgumentException("Email is required for registration.");
+        }
 
         // 1️⃣ Check if email exists
         Users existingUser = userRepository.findByAddressEmbeddableEmail(user.getAddressEmbeddable().getEmail());
@@ -57,19 +61,11 @@ public class UserService {
 
     // Login user
     public Users loginUser(Users user) {
-        // email comes from user.getEmail(), because your DB stores it directly
+        if (user.getAddressEmbeddable() == null || user.getAddressEmbeddable().getEmail() == null) {
+            throw new IllegalArgumentException("Email is required for login.");
+        }
         String email = user.getAddressEmbeddable().getEmail();
-
-        Users existingUser = userRepository.findByAddressEmbeddableEmail(email);
-        if (existingUser == null) {
-            throw new RuntimeException("Invalid email or password");
-        }
-
-        if (!passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
-            throw new RuntimeException("Invalid email or password");
-        }
-
-        return existingUser;
+        return authenticate(email, user.getPassword());
     }
 
     public Optional<Users> findById(Long id) {
@@ -124,8 +120,9 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("User not found: " + id));
 
         try {
-            if (user.getAddressEmbeddable() == null)
+            if (user.getAddressEmbeddable() == null) {
                 user.setAddressEmbeddable(new AddressEmbeddable());
+            }
             user.getAddressEmbeddable().setImage(file.getBytes());
             return userRepository.save(user);
         } catch (IOException e) {
@@ -140,8 +137,9 @@ public class UserService {
     // ---------------- optional DTO mapping helpers ----------------
     // If you prefer returning DTOs to the controller (safer), use this:
     public UserDto toDto(Users u) {
-        if (u == null)
+        if (u == null) {
             return null;
+        }
         AddressDto ad = null;
         if (u.getAddressEmbeddable() != null) {
             ad = new AddressDto();

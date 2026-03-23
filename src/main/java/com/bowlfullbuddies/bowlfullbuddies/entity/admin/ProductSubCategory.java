@@ -38,9 +38,8 @@ public class ProductSubCategory {
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
-		if (!(o instanceof ProductSubCategory))
+		if (!(o instanceof ProductSubCategory other))
 			return false;
-		ProductSubCategory other = (ProductSubCategory) o;
 		return id != null && id.equals(other.getId());
 	}
 

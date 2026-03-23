@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Objects;
 
 import com.bowlfullbuddies.bowlfullbuddies.model.ProductColor;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -84,9 +83,8 @@ public class Product {
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (!(o instanceof Product))
+        if (!(o instanceof Product other))
             return false;
-        Product other = (Product) o;
         return id != null && id.equals(other.getId());
     }
 

@@ -1,7 +1,7 @@
 package com.bowlfullbuddies.bowlfullbuddies.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class DiscountService {
         return discountRepository.findAll()
                 .stream()
                 .map(discountMapper::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public DiscountDTO saveDiscount(CreateDiscountDTO dto) {

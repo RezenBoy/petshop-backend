@@ -35,6 +35,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/users/login").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/user/orders/checkout").permitAll() // Allow guest checkout
                 .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll() // Allow HTML <img> tags to fetch files!
                 .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll() // Allow public shoppers to see products
                 .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()

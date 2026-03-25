@@ -34,11 +34,12 @@ public class UserOrderService {
 
     @Transactional
     public Orders checkout(Long userId, OrderRequestDTO request) {
-        Users user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
         Orders order = new Orders();
-        order.setUsers(user);
+        if (userId != null) {
+            Users user = userRepository.findById(userId).orElse(null);
+            order.setUsers(user);
+        }
+        
         order.setOrderDateTime(LocalDateTime.now());
         
         try {

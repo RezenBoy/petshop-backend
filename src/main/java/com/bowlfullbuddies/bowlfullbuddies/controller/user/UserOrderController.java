@@ -32,17 +32,16 @@ public class UserOrderController {
 
     @PostMapping("/checkout")
     public ResponseEntity<?> checkout(Authentication authentication, @RequestBody OrderRequestDTO request) {
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        
-        Users u = userService.findUserByEmail(authentication.getName());
-        if (u == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
+        Long userId = null;
+        if (authentication != null && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
+            Users u = userService.findUserByEmail(authentication.getName());
+            if (u != null) {
+                userId = u.getId();
+            }
         }
 
         try {
-            Orders order = userOrderService.checkout(u.getId(), request);
+            Orders order = userOrderService.checkout(userId, request);
             return ResponseEntity.ok("Order placed successfully with ID: " + order.getId());
         } catch (Exception e) {
             e.printStackTrace();

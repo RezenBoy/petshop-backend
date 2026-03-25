@@ -8,4 +8,5 @@ import com.bowlfullbuddies.bowlfullbuddies.entity.admin.Orders;
 @Repository
 public interface OrdersRepository extends JpaRepository<Orders, Long> {
     List<Orders> findByUsersIdOrderByOrderDateTimeDesc(Long userId);
+    List<Orders> findAllByOrderByOrderDateTimeDesc();
 }

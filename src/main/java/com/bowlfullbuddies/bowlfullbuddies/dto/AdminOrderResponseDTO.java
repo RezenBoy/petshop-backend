@@ -2,6 +2,7 @@ package com.bowlfullbuddies.bowlfullbuddies.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ public class AdminOrderResponseDTO {
     private String customerName;
     private String customerEmail;
     private String customerPhone;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime orderDateTime;
     private String orderStatus;
     private Double totalPrice;

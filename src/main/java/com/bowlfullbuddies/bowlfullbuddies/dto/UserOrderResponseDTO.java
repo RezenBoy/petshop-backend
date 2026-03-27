@@ -12,8 +12,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserOrderResponseDTO {
     private Long id;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime orderDateTime;
+    private String orderDateTime;
     private String orderStatus;
     private Double totalPrice;
     private String paymentMode;

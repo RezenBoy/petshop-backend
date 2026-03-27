@@ -15,8 +15,7 @@ public class AdminOrderResponseDTO {
     private String customerName;
     private String customerEmail;
     private String customerPhone;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime orderDateTime;
+    private String orderDateTime;
     private String orderStatus;
     private Double totalPrice;
     private String paymentMode;

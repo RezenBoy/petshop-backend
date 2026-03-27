@@ -103,7 +103,10 @@ public class UserOrderService {
     private UserOrderResponseDTO mapToDTO(Orders order) {
         UserOrderResponseDTO dto = new UserOrderResponseDTO();
         dto.setId(order.getId());
-        dto.setOrderDateTime(order.getOrderDateTime());
+        if (order.getOrderDateTime() != null) {
+            java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+            dto.setOrderDateTime(order.getOrderDateTime().format(formatter));
+        }
         dto.setOrderStatus(order.getOrderStatus() != null ? order.getOrderStatus().name() : "N/A");
         dto.setTotalPrice(order.getTotalPrice());
         dto.setPaymentMode(order.getPaymentMode() != null ? order.getPaymentMode().name() : "N/A");

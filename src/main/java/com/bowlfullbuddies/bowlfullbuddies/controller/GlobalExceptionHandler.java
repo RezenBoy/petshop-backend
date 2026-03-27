@@ -38,7 +38,8 @@ public class GlobalExceptionHandler {
         error.put("timestamp", LocalDateTime.now());
         error.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         error.put("error", "Internal Server Error");
-        error.put("message", "An unexpected error occurred. Please try again later.");
+        String fullTrace = ex.getMessage() + " | " + (ex.getStackTrace().length > 0 ? ex.getStackTrace()[0].toString() : "");
+        error.put("message", fullTrace);
         
         // Log the actual exception trace to console to aid debugging without exposing to frontend
         ex.printStackTrace();

@@ -6,7 +6,7 @@ import com.bowlfullbuddies.bowlfullbuddies.service.UserOrderService;
 
 public class TestDebug {
     public static void main(String[] args) {
-        ApplicationContext ctx = SpringApplication.run(BowlfullbuddiesApplication.class, args);
+        ApplicationContext ctx = SpringApplication.run(BowlfullBuddiesApplication.class, args);
         UserOrderService svc = ctx.getBean(UserOrderService.class);
         try {
             System.out.println("Fetching orders for user ID 1...");

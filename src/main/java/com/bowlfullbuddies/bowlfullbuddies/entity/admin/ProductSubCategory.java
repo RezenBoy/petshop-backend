@@ -1,5 +1,6 @@
 package com.bowlfullbuddies.bowlfullbuddies.entity.admin;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class ProductSubCategory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_category_id")
     @JsonIgnoreProperties({"subCategories", "hibernateLazyInitializer", "handler"})
+	@JsonBackReference("category-subcategory")
 	private ProductCategory productCategory;
 
 	// @Lob

@@ -56,8 +56,9 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000",
-                "https://petshop-frontend-one.vercel.app", "https://petshop-frontend-gray.vercel.app"));
+        config.setAllowedOrigins(List.of(
+                "http://localhost:3000",
+                "https://petshop-frontend-gray.vercel.app"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         // explicitly allow Authorization header (safer than relying on "*")
         config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "X-Requested-With"));
